@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>clientes</title>
+    </h:head>
+    <h:body>
+        <br/>
+        <p:panel id="panelBusqueda" >
+            <h:form id="busqueda">
+                <!--<p:commandButton id="btnReporte" value="Reporte" action="#{personaBean.reporte()}" style="float:right;" />-->
+                <p:panelGrid columns="4" id="main-panel" styleClass="outerpanelgrid">
+                    <p:outputLabel value="Buscar"/>
+                    <p:inputText id="txtBuscar" value="#{clientesBean.campoBuscar}" />
+                    <p:selectOneMenu value="#{clientesBean.tipoBusqueda}">
+                        <f:selectItem itemLabel="nombres" itemValue="nombres"/>
+                        <f:selectItem itemLabel="apellidos" itemValue="apellidos"/>
+                        <f:selectItem itemLabel="cedula" itemValue="cedula"/>
+                    </p:selectOneMenu>
+                    <p:commandButton id="btnBuscar" value="Buscar" action="#{clientesBean.buscar()}" update=":form" />
+                </p:panelGrid>
+            </h:form>
+        </p:panel>
+        <p:panel id="panel" header="Consultar clientes">
+            <p:growl id="msg" life="3000"/>
+            <h:form id="form">
+                <p:commandButton id="btnAgregar" actionListener="#{clientesBean.agregar()}" update=":panelclientesOpciones" value="Agregar" icon="ui-icon-disk" oncomplete="PF('dlgclientesOpciones').show()"/>
+                <p:commandButton id="btnEditar" actionListener="#{clientesBean.editar()}" update=":panelclientesOpciones" value="Editar" icon="ui-icon-note" oncomplete="PF('dlgclientesOpciones').show()"/>
+                <p:commandButton id="btnEliminar" value="eliminar" icon="ui-icon-trash" action="#{clientesBean.eliminar_clientes()}" update="clientes" styleClass="ui-confirmdialog-yes">
+                    <p:confirm header="Confirmation" message="Esta seguraro que desea eliminarlo?" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+
+                <p:contextMenu for="clientes">
+                    <p:menuitem value="Editar" update=":panelclientesOpciones" icon="ui-icon-note" oncomplete="PF('dlgclientesOpciones').show()"/>
+                    <p:menuitem value="Borrar" update="clientes" icon="ui-icon-trash" actionListener="#{clientesBean.eliminar_clientes()}"/>
+                </p:contextMenu>
+                <p:dataTable id="clientes" value="#{clientesBean.listaClientes}" rows="10" var="clientes" rowKey="#{clientes.idclientes}" selection="#{clientesBean.clientesSelected}" selectionMode="single" paginator="true" paginatorPosition="bottom">
+                    <p:column headerText="idclientes">#{clientes.idclientes}</p:column>
+                    <p:column headerText="nombres">#{clientes.nombres}</p:column>
+                    <p:column headerText="apellidos">#{clientes.apellidos}</p:column>
+                    <p:column headerText="cedula">#{clientes.cedula}</p:column>
+                    <p:column headerText="email">#{clientes.email}</p:column>
+                    <p:column headerText="direccion">#{clientes.direccion}</p:column>
+                    <p:column headerText="fecha_nacimiento">#{clientesBean.convertir_fecha(clientes.fechaNacimiento)}</p:column>
+                    <p:column headerText="celular">#{clientes.celular}</p:column>
+                </p:dataTable>
+                <!--style="width:32px;text-align: center"-->
+            </h:form>
+            <p:dialog header="Clientes" widgetVar="dlgclientesOpciones" showEffect="fade" hideEffect="fade" resizable="false" modal="true"  id="clientesOpciones" dynamic="true">
+                <p:panel id="panelclientesOpciones" style="text-align:center;">
+                    <p:growl id="msgAgregar" life="3000"/>
+                    <h:form id="formclientesOpciones">
+                        <p:panelGrid columns="3">
+                            <p:outputLabel for="txtNombres" value="Nombres"/>
+                            <p:inputText id="txtNombres" value="#{clientesBean.nombres}" required="true" requiredMessage="Campo Obligatorio">
+                                <f:validateLength minimum="5"/>
+                            </p:inputText>
+                            <p:message for="txtNombres"/>
+                            <p:outputLabel for="txtApellidos" value="Apellidos"/>
+                            <p:inputText id="txtApellidos" value="#{clientesBean.apellidos}" required="true" requiredMessage="Campo Obligatorio">
+                                <f:validateLength minimum="5"/>
+                            </p:inputText>
+                            <p:message for="txtApellidos"/>
+                            <p:outputLabel for="txtCedula" value="Cedula"/>
+                            <p:inputText id="txtCedula" value="#{clientesBean.cedula}" required="true" requiredMessage="Campo Obligatorio">
+                                <f:validateLength minimum="5"/>
+                            </p:inputText>
+                            <p:message for="txtCedula"/>
+                            <p:outputLabel for="txtEmail" value="Email"/>
+                            <p:inputText id="txtEmail" value="#{clientesBean.email}" required="true" requiredMessage="Campo Obligatorio">
+                                <f:validateLength minimum="5"/>
+                            </p:inputText>
+                            <p:message for="txtEmail"/>
+                            <p:outputLabel for="txtDireccion" value="Direccion"/>
+                            <p:inputText id="txtDireccion" value="#{clientesBean.direccion}" required="true" requiredMessage="Campo Obligatorio">
+                                <f:validateLength minimum="5"/>
+                            </p:inputText>
+                            <p:message for="txtDireccion"/>
+                            <p:outputLabel for="txtFecha_nacimiento" value="Fecha_nacimiento"/>
+                            <p:calendar id="txtFecha_nacimiento" value="#{clientesBean.fechaNacimiento}" required="true" requiredMessage="Campo Obligatorio" pattern="yyyy-MM-dd" mask="true">
+                                <f:validateLength minimum="5"/>
+                            </p:calendar>
+                            <p:message for="txtFecha_nacimiento"/>
+                            <p:outputLabel for="txtCelular" value="Celular"/>
+                            <p:inputText id="txtCelular" value="#{clientesBean.celular}" required="true" requiredMessage="Campo Obligatorio">
+                                <f:validateLength minimum="5"/>
+                            </p:inputText>
+                            <p:message for="txtCelular"/>
+                        </p:panelGrid>
+                        <p:commandButton id="btnGuardar" value="#{clientesBean.btnValue}" update=":form,:formclientesOpciones" action="#{clientesBean.execute()}"/>
+                    </h:form>
+                </p:panel>
+            </p:dialog>
+        </p:panel>
+    </h:body>
+</html>

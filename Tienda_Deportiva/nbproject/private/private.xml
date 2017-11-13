@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/nestoragredo/NetBeansProjects/Tienda_Deportiva/src/java/modelo/Clientes.java</file>
+            <file>file:/home/nestoragredo/NetBeansProjects/Tienda_Deportiva/web/welcomePrimefaces.xhtml</file>
+            <file>file:/home/nestoragredo/NetBeansProjects/Tienda_Deportiva/src/java/JpaController/ClientesJpaController.java</file>
+            <file>file:/home/nestoragredo/NetBeansProjects/Tienda_Deportiva/src/java/dao/ClientesDao.java</file>
+            <file>file:/home/nestoragredo/NetBeansProjects/Tienda_Deportiva/src/conf/persistence.xml</file>
+            <file>file:/home/nestoragredo/NetBeansProjects/Tienda_Deportiva/src/java/bean/ClientesBean.java</file>
+            <file>file:/home/nestoragredo/NetBeansProjects/Tienda_Deportiva/web/clientes.xhtml</file>
+            <file>file:/home/nestoragredo/NetBeansProjects/Tienda_Deportiva/web/index.xhtml</file>
+        </group>
+    </open-files>
+</project-private>
